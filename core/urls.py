@@ -19,6 +19,11 @@ from django.urls import path
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
+from rest_framework.routers import SimpleRouter
+
+from items.views import ItemViewset
+from logisticians.views import AuthenticationViewSet
+from packages.views import PackageViewset
 
 schema_view = get_schema_view(
     openapi.Info(
@@ -31,8 +36,13 @@ schema_view = get_schema_view(
 )
 
 
+router = SimpleRouter()
+router.register("authentication", AuthenticationViewSet, basename="authentication")
+router.register("items", ItemViewset, basename="items")
+router.register("packages", PackageViewset, basename="packages")
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    path("admin/", admin.site.urls),
     path(
         "swagger/",
         schema_view.with_ui("swagger", cache_timeout=0),
@@ -40,3 +50,5 @@ urlpatterns = [
     ),
     path("redoc/", schema_view.with_ui("redoc", cache_timeout=0), name="schema-redoc"),
 ]
+
+urlpatterns += router.urls
