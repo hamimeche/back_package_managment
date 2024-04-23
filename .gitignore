@@ -21,3 +21,5 @@ pytest.ini
 tags
 .ropeproject
 .pre-commit-config.yaml
+venv-elyn/
+venv-elyn311/
