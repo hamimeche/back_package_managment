@@ -20,7 +20,7 @@ from django.urls import path, include
 from drf_yasg import openapi
 from drf_yasg.views import get_schema_view
 from rest_framework import permissions
-from packages.views import ListPackage, GetPackage
+from packages.views import ListPackage, GetPackage, ValidatePackage
 from items.views import GetItemsFromPackage
 
 schema_view = get_schema_view(
@@ -51,5 +51,10 @@ urlpatterns = [
         "items/<package_code>/",
         GetItemsFromPackage.as_view(),
         name="retrieve-items-infos",
+    ),
+    path(
+        "validate/<package_code>/",
+        ValidatePackage.as_view(),
+        name="validate-package",
     ),
 ]
